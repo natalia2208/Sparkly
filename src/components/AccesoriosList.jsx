@@ -1,33 +1,79 @@
-export default function AccesoriosList({ items, loading, error }) {
-  if (loading) {
-    return <p className="text-center py-8">Loading accessories...</p>;
-  }
+import { useEffect, useState } from "react";
+import { getAccessories } from "../services/accessoriesApi";
+import { Link } from "react-router-dom";
+import "../styles/layout.css";
 
-  if (error) {
-    return <p className="text-center text-red-600 py-8">Error: {error}</p>;
-  }
+export default function AccesoriosList() {
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [search, setSearch] = useState("");
 
-  if (!items || items.length === 0) {
-    return <p className="text-center text-gray-500 py-8">No accessories found.</p>;
-  }
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const data = await getAccessories();
+        setItems(data);
+      } catch (err) {
+        setError("No se pudieron cargar los accesorios");
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadData();
+  }, []);
+
+  const filtered = items.filter(
+    (a) =>
+      a.name?.toLowerCase().includes(search.toLowerCase()) ||
+      a.nombre?.toLowerCase().includes(search.toLowerCase()) ||
+      a.marca?.toLowerCase().includes(search.toLowerCase()) ||
+      a.categoria?.toLowerCase().includes(search.toLowerCase())
+  );
+
+  if (loading) return <p className="text-center py-8">Cargando accesorios...</p>;
+  if (error) return <p className="text-center text-red-600 py-8">{error}</p>;
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-      {items.map((acc) => (
-        <div
-          key={acc.id}
-          className="bg-white shadow rounded p-4 flex flex-col items-center"
-        >
-          <img
-            src={acc.image}
-            alt={acc.name}
-            className="w-40 h-40 object-cover rounded"
-          />
+    <div>
+      {/* BUSCADOR */}
+      <input
+        type="text"
+        placeholder="Buscar por nombre, marca o categoría"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        className="input-buscar"
+      />
 
-          <h2 className="text-lg font-bold mt-3">{acc.name}</h2>
-          <p className="text-pink-600 font-semibold">${acc.price}</p>
+
+
+    {/* GRID */}
+      {filtered.length === 0 ? (
+        <p className="text-center text-gray-500 py-8">No se encontraron accesorios.</p>
+      ) : (
+        <div className="grid">
+          {filtered.map((acc) => (
+            <div key={acc.id} className="card">
+              <img
+                src={acc.imagen || acc.image}
+                alt={acc.nombre || "Accesorio"}
+                onError={(e) => { e.target.src = "/assets/imagen-default.jpg"; }}
+              />
+
+             <h3>{acc.nombre || acc.name || "Sin nombre"}</h3>
+
+              <p className="carrito-precio">
+              ${Number(acc.precio ?? acc.price ?? 0).toLocaleString("es-CO")}
+              </p>
+
+
+              <Link to={`/accesorio/${acc.id}`}>
+                <button className="btn-detail">Ver detalle</button>
+              </Link>
+            </div>
+          ))}
         </div>
-      ))}
+      )}
     </div>
   );
 }

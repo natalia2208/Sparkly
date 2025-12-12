@@ -17,13 +17,13 @@ export default function Carrito() {
   };
 
   if (cart.length === 0) {
-    return <h2 className="empty-cart">🛒 Tu carrito está vacío</h2>;
+    return <h2 className="empty-cart">Tu carrito está vacío</h2>;
   }
 
   return (
     <div className="carrito-contenedor">
 
-      <h1 className="carrito-titulo">Tu carrito 🛍</h1>
+      <h1 className="carrito-titulo">Tu carrito</h1>
 
       <div className="carrito-grid">
 

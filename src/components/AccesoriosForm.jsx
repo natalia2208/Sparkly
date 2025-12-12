@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createAccessory } from "../services/accessoriesApi.js";
 
-export default function AccessorieForm() {
+export default function AccesoriosForm() {
   const [form, setForm] = useState({
     nombre: "",
     categoria: "",
@@ -95,35 +95,36 @@ export default function AccessorieForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="max-w-md mx-auto p-4 bg-white shadow rounded"
+      className="accessory-form"
     >
-      <h2 className="text-2xl font-semibold mb-4">Agregar accesorio</h2>
+      <h2 className="accessory-title">Agregar accesorio</h2>
 
-      {mensaje && <p className="mb-3 text-green-600">{mensaje}</p>}
+      {mensaje && <p className="form-success">{mensaje}</p>}
 
       {/* NOMBRE */}
-      <div className="mb-3">
+      <div className="form-group">
         <label>Nombre</label>
         <input
           type="text"
           name="nombre"
           value={form.nombre}
           onChange={handleChange}
-          className="w-full border p-2 rounded"
+          className="accessory-input"
+          placeholder="Nombre del accesorio"
         />
         {errors.nombre && (
-          <p className="text-red-600 text-sm">{errors.nombre}</p>
+          <p className="accessory-error">{errors.nombre}</p>
         )}
       </div>
 
       {/* CATEGORÍA */}
-      <div className="mb-3">
+      <div className="form-group">
         <label>Categoría</label>
         <select
           name="categoria"
           value={form.categoria}
           onChange={handleChange}
-          className="w-full border p-2 rounded"
+          className="accessory-input"
         >
           <option value="">Selecciona…</option>
           <option value="collares">Collares</option>
@@ -132,58 +133,61 @@ export default function AccessorieForm() {
           <option value="anillos">Anillos</option>
         </select>
         {errors.categoria && (
-          <p className="text-red-600 text-sm">{errors.categoria}</p>
+          <p className="accessory-error">{errors.categoria}</p>
         )}
       </div>
 
       {/* MARCA */}
-      <div className="mb-3">
+      <div className="form-group">
         <label>Marca</label>
         <input
           type="text"
           name="marca"
           value={form.marca}
           onChange={handleChange}
-          className="w-full border p-2 rounded"
+          className="accessory-input"
+          placeholder="Marca"
         />
         {errors.marca && (
-          <p className="text-red-600 text-sm">{errors.marca}</p>
+          <p className="accessory-error">{errors.marca}</p>
         )}
       </div>
 
       {/* PRECIO */}
-      <div className="mb-3">
+      <div className="form-group">
         <label>Precio</label>
         <input
           type="number"
           name="precio"
           value={form.precio}
           onChange={handleChange}
-          className="w-full border p-2 rounded"
+          className="accessory-input"
+          placeholder="Precio en COP"
         />
         {errors.precio && (
-          <p className="text-red-600 text-sm">{errors.precio}</p>
+          <p className="accessory-error">{errors.precio}</p>
         )}
       </div>
 
       {/* IMAGEN */}
-      <div className="mb-3">
+      <div className="form-group">
         <label>Imagen (URL)</label>
         <input
           type="text"
           name="imagen"
           value={form.imagen}
           onChange={handleChange}
-          className="w-full border p-2 rounded"
+          className="accessory-input"
+          placeholder="https://..."
         />
         {errors.imagen && (
-          <p className="text-red-600 text-sm">{errors.imagen}</p>
+          <p className="accessory-error">{errors.imagen}</p>
         )}
       </div>
 
       <button
         type="submit"
-        className="bg-pink-500 text-white px-4 py-2 rounded mt-3"
+        className="btn-accessory"
       >
         Agregar
       </button>

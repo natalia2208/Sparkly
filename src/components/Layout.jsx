@@ -1,11 +1,14 @@
+import { useAuth } from "../hooks/useAuth.jsx";
 import { Link, Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
 import logo from "../assets/logo2-removebg-preview.png";
-import "../styles/layout.css";
 
 const Layout = () => {
 
   const [count, setCount] = useState(0);
+  const [openSubmenu, setOpenSubmenu] = useState(false); // << SUBMENÚ
+  const { currentUser } = useAuth();
+
 
   useEffect(() => {
     const updateCart = () => {
@@ -13,8 +16,7 @@ const Layout = () => {
       setCount(cart.length);
     };
 
-    updateCart(); // al cargar
-
+    updateCart();
     window.addEventListener("cartUpdated", updateCart);
 
     return () => {
@@ -23,45 +25,52 @@ const Layout = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="layout-container">
 
-      <nav>
-        <div style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          padding: "10px 30px"
-        }}>
+      {/* NAVBAR */}
+      <nav className="navbar">
+        <div className="navbar-inner">
 
           {/* LOGO */}
-          <div style={{ display: "flex", alignItems: "center" }}>
+          <div className="navbar-logo">
             <img src={logo} className="logo" alt="Logo" />
-            <span className="titulo">Sparkly</span>
+            <span className="brand-name">Sparkly</span>
           </div>
 
-          {/* MENU */}
+          {/* MENÚ */}
           <div className="menu">
 
-            <Link to="/home" className="flex items-center gap-2">
-              <i className="fa-solid fa-house"></i>
-              <span>Home</span>
-            </Link>
+            {/* HOME + SUBMENÚ */}
+            <div
+              className="submenu-container"
+            >
+              <Link to="/home" className="menu-link">
+                <i className="fa-solid fa-house"></i>
+                Home
+              </Link>
 
-            <Link to="/accesorios" className="flex items-center gap-2">
+            </div>
+
+            {/* ACCESORIOS */}
+            <Link to="/accesorios" className="menu-link">
               <i className="fa-solid fa-star"></i>
-              <span>Accesorios</span>
+              Accesorios
             </Link>
 
-            <Link to="/carrito" className="flex items-center gap-2 carrito-link">
+            {/* CARRITO */}
+            <Link to="/carrito" className="menu-link carrito-link">
               <i className="fa-solid fa-cart-plus"></i>
-              <span>Carrito</span>
-
-              {count > 0 && (
-                <span className="cart-count">{count}</span>
-              )}
+              Carrito
+              {count > 0 && <span className="cart-count">{count}</span>}
             </Link>
 
-            <Link to="/login" className="flex items-center gap-2">
+            <Link to="/crear" className="menu-link flex items-center gap-2">
+              <i className="fa-solid fa-plus"></i>
+              <span>Agregar accesorio</span>
+            </Link>
+            
+            {/* LOGIN */}
+            <Link to="/login" className="menu-link flex items-center gap-2">
               <i className="fa-solid fa-arrow-right-to-bracket"></i>
               <span>Login</span>
             </Link>
@@ -70,14 +79,17 @@ const Layout = () => {
         </div>
       </nav>
 
-      {/* CONTENIDO */}
-      <div className="container">
-        <div className="banner">
-          Bienvenido a Sparkly ✨ Accesorios con estilo
-        </div>
-
-        <Outlet />
+        {currentUser && (
+          <div style={{ marginTop: "10px", textAlign: "right", paddingRight: "30px" }}>
+            <span className="text-sm font-semibold text-pink-600">
+              Bienvenida, {currentUser.nombre}
+        </span>
       </div>
+    )
+  }
+
+      {/* CONTENIDO DE LAS PÁGINAS */}
+      <Outlet />
     </div>
   );
 };

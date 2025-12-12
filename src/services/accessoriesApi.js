@@ -12,6 +12,7 @@ export async function getAccessories() {
     const res = await http.get("/accessories");
     return res.data;
   } catch (err) {
+    console.log(err);
     const res2 = await http.get("/accesories");
     return res2.data;
   }

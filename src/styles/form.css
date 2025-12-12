@@ -1,0 +1,232 @@
+.btn-login {
+  margin-top: 20px;
+  padding: 12px;
+  width: 100%;
+  background: linear-gradient(to right, hotpink, deeppink);
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-login:hover {
+  background: deeppink;
+  transform: scale(1.05);
+}
+
+.perfil-container {
+  max-width: 500px;
+  margin: 40px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.perfil-titulo {
+  font-size: 28px;
+  color: hotpink;
+  margin-bottom: 20px;
+  font-family: 'Pacifico', cursive;
+}
+
+.btn-logout {
+  margin-top: 30px;
+  padding: 12px 20px;
+  background: linear-gradient(to right, crimson, deeppink);
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-logout:hover {
+  background: deeppink;
+  transform: scale(1.05);
+}
+
+/* CONTENEDOR CENTRAL */
+.form-container {
+  max-width: 500px;
+  margin: 60px auto;
+  padding: 20px;
+  text-align: center;
+}
+
+/* TARJETA DEL FORMULARIO */
+.form-card {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+/* TÍTULO */
+.form-title {
+  font-size: 28px;
+  color: hotpink;
+  margin-bottom: 20px;
+  font-family: 'Pacifico', cursive;
+}
+
+/* GRUPOS DE INPUT */
+.form-group {
+  margin-bottom: 18px;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #374151;
+}
+
+/* INPUTS */
+.form-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid hotpink;
+  border-radius: 12px;
+  outline: none;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+}
+
+.form-input::placeholder {
+  color: hotpink;
+  font-weight: 400;
+}
+
+.form-input:focus {
+  border-color: deeppink;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.12);
+}
+
+/* BOTÓN PRINCIPAL */
+.btn-login {
+  margin-top: 20px;
+  padding: 12px;
+  width: 100%;
+  background: linear-gradient(to right, hotpink, deeppink);
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-login:hover {
+  background: deeppink;
+  transform: scale(1.05);
+}
+
+/* BOTÓN DE CAMBIO ENTRE LOGIN Y REGISTRO */
+.btn-toggle {
+  margin-top: 20px;
+  background: none;
+  border: none;
+  color: hotpink;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+/* MENSAJES */
+.form-success {
+  color: green;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.form-error {
+  color: crimson;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+
+
+.btn-register-toggle {
+  margin-top: 20px;
+  background: none;
+  border: none;
+  color: deeppink;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+
+
+/* FORMULARIO AGREGAR ACCESORIOS */
+.accessory-form {
+  width: 90%;
+  max-width: 700px;
+  margin: 60px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+.accessory-title {
+  font-size: 28px;
+  color: hotpink;
+  margin-bottom: 20px;
+  font-family: 'Pacifico', cursive;
+}
+
+.accessory-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid hotpink;
+  border-radius: 12px;
+  outline: none;
+  font-size: 16px;
+  margin-bottom: 10px;
+  transition: all 0.3s ease;
+}
+
+.accessory-input:focus {
+  border-color: deeppink;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.12);
+}
+
+.accessory-error {
+  color: crimson;
+  font-size: 14px;
+  margin-top: -6px;
+  margin-bottom: 10px;
+}
+
+.btn-accessory {
+  margin-top: 20px;
+  padding: 12px;
+  width: 100%;
+  background: linear-gradient(to right, hotpink, deeppink);
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-accessory:hover {
+  background: deeppink;
+  transform: scale(1.05);
+}

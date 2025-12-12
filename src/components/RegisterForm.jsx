@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useUsers } from "../hooks/useUsers.js";
+import "../styles/form.css";
 
-export default function RegisterForm() {
+export default function RegisterForm({ onToggle }) {
   const { addUser } = useUsers();
   const [form, setForm] = useState({ email: "", password: "", nombre: "" });
   const [mensaje, setMensaje] = useState("");
@@ -17,64 +18,73 @@ export default function RegisterForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (
+      !form.nombre.trim() ||
+      !form.email.trim() ||
+      !form.password.trim()
+    ) {
+      setError("Todos los campos son obligatorios.");
+      return;
+    }
+
 try {
       setLoading(true);
       await addUser(form);
       setMensaje("✔ Cuenta creada con éxito");
       setForm({ nombre: "", email: "", password: "" });
     } catch (err) {
+      console.error(err);
       setError("No se pudo crear la cuenta. Intenta de nuevo.");
     } finally {
       setLoading(false);
     }
   };
 
-
   return (
-    <form onSubmit={handleSubmit} className="max-w-md mx-auto p-6 bg-white shadow rounded">
-      <h2 className="text-2xl font-semibold mb-4">Registro</h2>
+    <form onSubmit={handleSubmit} className="form-card">
+      <h2 className="form-title">Registro</h2>
 
-      {mensaje && <p className="text-green-600 mb-3">{mensaje}</p>}
-      {error && <p className="text-red-600 mb-3">{error}</p>}
+      {mensaje && <p className="form-success">{mensaje}</p>}
+      {error && <p className="form-error">{error}</p>}
 
-      <div className="mb-3">
+      <div className="form-group">
         <label>Nombre</label>
         <input
           name="nombre"
           value={form.nombre}
           onChange={handleChange}
-          className="w-full border px-3 py-2 rounded"
-          placeholder="Nombre"
+          className="form-input"
+          placeholder="Nombre completo"
         />
       </div>
 
-      <div className="mb-3">
+      <div className="form-group">
         <label>Email</label>
         <input
           type="email"
           name="email"
           value={form.email}
           onChange={handleChange}
-          className="w-full border px-3 py-2 rounded"
-          placeholder="Correo"
+          className="form-input"
+          placeholder="Correo electrónico"
         />
       </div>
 
-      <div className="mb-3">
+      <div className="form-group">
         <label>Contraseña</label>
         <input
           type="password"
           name="password"
           value={form.password}
           onChange={handleChange}
-          className="w-full border px-3 py-2 rounded"
+          className="form-input"
           placeholder="Contraseña"
         />
       </div>
 
       <button
         type="submit"
-        className="bg-pink-600 text-white px-4 py-2 rounded mt-3"
+        className="btn-login"
         disabled={loading}
       >
         {loading ? "Creando..." : "Crear cuenta"}

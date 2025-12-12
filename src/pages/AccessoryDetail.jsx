@@ -28,11 +28,13 @@ const AccessoryDetail = () => {
   if (error) return <p>{error}</p>;
   if (!accessory) return <p>No existe ese accesorio</p>;
 
+  // Normalización de campos (compatibilidad con viejos y nuevos)
   const img = accessory.imagen || accessory.image || "";
   const name = accessory.nombre || accessory.name || "Sin nombre";
   const brand = accessory.marca || accessory.brand || "-";
   const category = accessory.categoria || accessory.category || "-";
-  const price = accessory.precio ?? accessory.price ?? "-";
+  const rawPrice = accessory.precio ?? accessory.price ?? 0;
+  const price = Number(rawPrice).toLocaleString("es-CO");
   const description = accessory.descripcion || accessory.description || "";
 
   const addToCart = () => {
@@ -40,9 +42,17 @@ const AccessoryDetail = () => {
 
     const product = {
       id: accessory.id,
+      // Guardamos ambas variantes para compatibilidad
       name,
-      price,
-      image: img
+      nombre: name,
+      brand,
+      marca: brand,
+      category,
+      categoria: category,
+      price: rawPrice,
+      precio: rawPrice,
+      image: img,
+      imagen: img
     };
 
     // evitar duplicados
@@ -54,7 +64,7 @@ const AccessoryDetail = () => {
     cart.push(product);
     localStorage.setItem("cart", JSON.stringify(cart));
 
-    // notificar al menu
+    // notificar al menú
     window.dispatchEvent(new Event("cartUpdated"));
 
     alert("✅ Producto añadido al carrito");
@@ -64,7 +74,13 @@ const AccessoryDetail = () => {
     <div className="detail-container">
 
       <div className="detail-images">
-        {img && <img src={img} alt={name} />}
+        {img && (
+          <img
+            src={img}
+            alt={name}
+            onError={(e) => { e.target.src = "/assets/imagen-default.jpg"; }}
+          />
+        )}
       </div>
 
       <div className="detail-info">

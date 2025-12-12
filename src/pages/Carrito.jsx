@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "../styles/layout.css";
 
+//funcion carrito
 export default function Carrito() {
 
   const [cart, setCart] = useState([]);
